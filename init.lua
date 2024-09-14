@@ -38,7 +38,7 @@ require('packer').startup(function(use)
         run = ':TSUpdate'  -- Automatically update parsers
     }
     require'nvim-treesitter.configs'.setup {
-        ensure_installed = { "python", "javascript", "html", "css", "lua", "c" },  -- Add your preferred languages here
+        ensure_installed = { "python", "javascript", "html", "css", "lua", "c", "rust" },  -- Add your preferred languages here
         highlight = {
           enable = true,  -- Enable syntax highlighting
         },
@@ -53,6 +53,20 @@ require('packer').startup(function(use)
     require'lspconfig'.cssls.setup{}  -- CSS LSP
     require'lspconfig'.clangd.setup{}  -- C LSP
 
+    -- Rust-specific tools
+    use 'simrat39/rust-tools.nvim'
+
+    -- Enable Rust support with rust-analyzer
+    require'lspconfig'.rust_analyzer.setup{
+      settings = {
+        ["rust-analyzer"] = {
+          cargo = {
+            allFeatures = true,
+          },
+        },
+      }
+    }
+
     use 'hrsh7th/nvim-cmp'  -- Autocompletion plugin
     use 'hrsh7th/cmp-nvim-lsp'  -- LSP source for nvim-cmp
 
@@ -63,11 +77,23 @@ require('packer').startup(function(use)
     use 'gruvbox-community/gruvbox'
 
 end)
+-- Rust tools configuration for better integration
+    require('rust-tools').setup({
+      server = {
+        on_attach = function(_, bufnr)
+          -- Keybindings for Rust actions
+          local opts = { noremap=true, silent=true }
+          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>RustCodeAction<CR>', opts)
+        end,
+      },
+    })
+
 -- Set up completion
     local cmp = require'cmp'
     cmp.setup({
     sources = {
-        { name = 'nvim_lsp' }
+        { name = 'nvim_lsp' },
+        { name = 'buffer' }
     },
     mapping = {
         ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
