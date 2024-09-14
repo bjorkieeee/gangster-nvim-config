@@ -38,7 +38,7 @@ require('packer').startup(function(use)
         run = ':TSUpdate'  -- Automatically update parsers
     }
     require'nvim-treesitter.configs'.setup {
-        ensure_installed = { "python", "javascript", "html", "css", "lua" },  -- Add your preferred languages here
+        ensure_installed = { "python", "javascript", "html", "css", "lua", "c" },  -- Add your preferred languages here
         highlight = {
           enable = true,  -- Enable syntax highlighting
         },
@@ -51,11 +51,19 @@ require('packer').startup(function(use)
     require'lspconfig'.ts_ls.setup{}  -- TypeScript/JavaScript LSP
     require'lspconfig'.html.setup{}  -- HTML LSP
     require'lspconfig'.cssls.setup{}  -- CSS LSP
+    require'lspconfig'.clangd.setup{}  -- C LSP
 
     use 'hrsh7th/nvim-cmp'  -- Autocompletion plugin
     use 'hrsh7th/cmp-nvim-lsp'  -- LSP source for nvim-cmp
 
-    -- Set up completion
+    -- Status line
+    use 'nvim-lualine/lualine.nvim'
+
+    -- Color scheme (You can pick whichever you like)
+    use 'gruvbox-community/gruvbox'
+
+end)
+-- Set up completion
     local cmp = require'cmp'
     cmp.setup({
     sources = {
@@ -67,17 +75,6 @@ require('packer').startup(function(use)
 	['<CR>'] = cmp.mapping.confirm({ select = true }),
     },
 })
-
-
-
-    -- Status line
-    use 'nvim-lualine/lualine.nvim'
-
-    -- Color scheme (You can pick whichever you like)
-    use 'gruvbox-community/gruvbox'
-
-
-end)
 
 -- Keybindings
 vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true })
