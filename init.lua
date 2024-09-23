@@ -73,6 +73,16 @@ require('packer').startup(function(use)
     -- Status line
     use 'nvim-lualine/lualine.nvim'
 
+    -- Git status
+    use 'nvim-lua/plenary.nvim'
+    use {
+        'lewis6991/gitsigns.nvim',
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = function()
+          require('gitsigns').setup()
+        end
+    }
+
     -- Color scheme (You can pick whichever you like)
     use 'gruvbox-community/gruvbox'
 
