@@ -69,8 +69,9 @@ require('packer').startup(function(use)
         end
     }
 
-    -- Color scheme (You can pick whichever you like)
-    use 'gruvbox-community/gruvbox'
+    -- Color themes
+    -- use 'gruvbox-community/gruvbox'
+    use { "rose-pine/neovim", as = "rose-pine" }
 
 end)
 
@@ -87,6 +88,22 @@ end)
 	['<CR>'] = cmp.mapping.confirm({ select = true }),
     },
 })
+
+-- Theme setup
+require("rose-pine").setup({
+    variant = "dawn",  -- auto, main, moon, or dawn
+    dark_variant = "main",  -- main, moon, or dawn
+    dim_inactive_windows = false,
+    extend_background_behind_borders = true,
+    enable = {
+        terminal = true,
+        legacy_highlights = true,
+        migrations = true,
+    },
+})
+
+-- Set colorscheme
+vim.cmd("colorscheme rose-pine")
 
 -- Keybindings
 vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true })
