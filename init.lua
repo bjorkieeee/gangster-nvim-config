@@ -38,7 +38,7 @@ require('packer').startup(function(use)
         run = ':TSUpdate'  -- Automatically update parsers
     }
     require'nvim-treesitter.configs'.setup {
-        ensure_installed = { "python", "javascript", "html", "css", "lua", "c" },  -- Add your preferred languages here
+        ensure_installed = { "python", "javascript", "html", "css", "lua", "c", "cpp" },  -- Add your preferred languages here
         highlight = {
           enable = true,  -- Enable syntax highlighting
         },
@@ -51,7 +51,9 @@ require('packer').startup(function(use)
     require'lspconfig'.ts_ls.setup{}  -- TypeScript/JavaScript LSP
     require'lspconfig'.html.setup{}  -- HTML LSP
     require'lspconfig'.cssls.setup{}  -- CSS LSP
-    require'lspconfig'.clangd.setup{}  -- C LSP
+    require'lspconfig'.clangd.setup{
+        filetypes = { "c", "cpp" } 
+    }  -- C and CPP LSP
 
     use 'hrsh7th/nvim-cmp'  -- Autocompletion plugin
     use 'hrsh7th/cmp-nvim-lsp'  -- LSP source for nvim-cmp
