@@ -49,11 +49,14 @@ require('packer').startup(function(use)
     -- Set up Python and other language servers
     require'lspconfig'.pylsp.setup{}  -- Python LSP
     require'lspconfig'.ts_ls.setup{}  -- TypeScript/JavaScript LSP
-    require'lspconfig'.html.setup{}  -- HTML LSP
+    require'lspconfig'.html.setup{
+        filetypes = {"html", "htmldjango"},
+}  -- HTML LSP also adding Django
     require'lspconfig'.cssls.setup{}  -- CSS LSP
     require'lspconfig'.clangd.setup{
         filetypes = { "c", "cpp" } 
     }  -- C and CPP LSP
+    use 'vim-scripts/django.vim'
 
     use 'hrsh7th/nvim-cmp'  -- Autocompletion plugin
     use 'hrsh7th/cmp-nvim-lsp'  -- LSP source for nvim-cmp
