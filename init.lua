@@ -18,6 +18,14 @@ require('packer').startup(function(use)
     -- Plugin manager
     use 'wbthomason/packer.nvim'
     
+    -- Commenting out with GCC
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    }
+
     -- Fuzzy finder (Telescope)
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.8',
@@ -106,6 +114,9 @@ require("rose-pine").setup({
         migrations = true,
     },
 })
+
+-- Commenting out with GCC
+require('Comment').setup()
 
 -- Set colorscheme
 vim.cmd("colorscheme rose-pine")
